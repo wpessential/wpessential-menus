@@ -21,6 +21,17 @@ final class Menus
 
 	public function add ( $args = [] )
 	{
+		$name = $args[ 'name' ];
+		if ( ! $name ) return;
+		static $id = 1;
+		$id              = $args[ 'id' ] ?? "{$id}_id";
+		$this->add_menus = array_merge( $this->add_menus, [ $id => $name ] );
+
+		return $this;
+	}
+
+	public function adds ( $args = [] )
+	{
 		$this->add_menus = array_merge( $this->add_menus, $args );
 
 		return $this;
@@ -29,6 +40,13 @@ final class Menus
 	public function remove ( $key = '' )
 	{
 		$this->remove_menus = array_push( $this->remove_menus, $key );
+
+		return $this;
+	}
+
+	public function removes ( $keyes = [] )
+	{
+		$this->remove_menus = array_merge( $this->remove_menus, $keyes );
 
 		return $this;
 	}
