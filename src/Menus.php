@@ -9,8 +9,8 @@ if ( ! \defined( 'ABSPATH' ) && ! \defined( 'WPE_REG_MENUS' ) )
 
 final class Menus
 {
-	protected $add_menus    = [];
-	protected $remove_menus = [];
+	private $add_menus    = [];
+	private $remove_menus = [];
 
 	public function __construct () {}
 
@@ -57,7 +57,7 @@ final class Menus
 		$this->unregister();
 	}
 
-	protected function unregister ()
+	private function unregister ()
 	{
 		$menus = apply_filters( 'wpe/library/menus_remove', array_merge( $this->remove_menus, [] ) );
 		if ( ! empty( $menus ) )
@@ -69,7 +69,7 @@ final class Menus
 		}
 	}
 
-	protected function register ()
+	private function register ()
 	{
 		$menus = apply_filters(
 			'wpe/library/menus_add',
