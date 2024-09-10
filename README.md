@@ -1,7 +1,7 @@
 # WPEssential Menus
 Help to register the menus in WordPress.
 
-`composer require wpessential-menus`
+`composer require wpessential/wpessential-menus`
 
 Add the single menu to WordPress registry
 

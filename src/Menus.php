@@ -16,7 +16,7 @@ final class Menus
 
 	public static function make ()
 	{
-		return new self();
+		return new static();
 	}
 
 	public function add ( $args = [] )
@@ -24,29 +24,35 @@ final class Menus
 		$name = $args[ 'name' ];
 		if ( ! $name ) return;
 		static $id = 1;
-		$id              = $args[ 'id' ] ?? "{$id}_id";
-		$this->add_menus = array_merge( $this->add_menus, [ $id => $name ] );
+		$id                     = $args[ 'id' ] ?? "{$id}_id";
+		$this->add_menus[ $id ] = $name;
 
 		return $this;
 	}
 
 	public function adds ( $args = [] )
 	{
-		$this->add_menus = array_merge( $this->add_menus, $args );
+		foreach ( $args as $id => $arg )
+		{
+			$this->add_menus[ $id ] = $arg;
+		}
 
 		return $this;
 	}
 
 	public function remove ( $key = '' )
 	{
-		$this->remove_menus = array_push( $this->remove_menus, $key );
+		$this->remove_menus[] = $key;
 
 		return $this;
 	}
 
 	public function removes ( $keyes = [] )
 	{
-		$this->remove_menus = array_merge( $this->remove_menus, $keyes );
+		foreach ( $keyes as $key )
+		{
+			$this->remove_menus[] = $key;
+		}
 
 		return $this;
 	}
@@ -59,7 +65,7 @@ final class Menus
 
 	private function unregister ()
 	{
-		$menus = apply_filters( 'wpe/library/menus_remove', array_merge( $this->remove_menus, [] ) );
+		$menus = apply_filters( 'wpe/library/menus_remove', $this->remove_menus );
 		if ( ! empty( $menus ) )
 		{
 			foreach ( $menus as $menu )
@@ -71,13 +77,8 @@ final class Menus
 
 	private function register ()
 	{
-		$menus = apply_filters(
-			'wpe/library/menus_add',
-			array_merge( $this->add_menus, [
-				'primary_menu' => esc_html__( 'Primary Menu', 'wpessential' ),
-				'footer_menu'  => esc_html__( 'Footer Menu', 'wpessential' ),
-			] )
-		);
+		$this->add_menus[ 'primary_menu' ] = esc_html__( 'Primary Menu', 'TEXT_DOMAIN' );
+		$menus                             = apply_filters( 'wpe/library/menus_add', $this->add_menus );
 
 		if ( ! empty( $menus ) )
 		{
