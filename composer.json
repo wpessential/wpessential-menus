@@ -1,6 +1,6 @@
 {
     "name": "wpessential/wpessential-menus",
-    "minimum-stability": "stable",
+    "version" : "2.0.3",
     "description": "WPEssential Menus helping the menus registry in WordPress.",
     "type": "library",
     "license": "GPL-3.0-or-later",

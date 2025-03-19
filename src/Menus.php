@@ -78,6 +78,7 @@ final class Menus
 	private function register ()
 	{
 		$this->add_menus[ 'primary_menu' ] = esc_html__( 'Primary Menu', 'TEXT_DOMAIN' );
+		$this->add_menus[ 'footer_menu' ] = esc_html__( 'Footer Menu', 'TEXT_DOMAIN' );
 		$menus                             = apply_filters( 'wpe/library/menus_add', $this->add_menus );
 
 		if ( ! empty( $menus ) )
